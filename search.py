@@ -72,6 +72,46 @@ def tinyMazeSearch(problem):
     w = Directions.WEST
     return  [s, s, w, s, w, w, s, w]
 
+
+def generalGraphSearch(problem, structure):
+    """
+    algoritme asli baraye piade sazie tamamie masaeel
+    problem: soal
+    structure: methode hale soal-> stack , list , ...
+    """
+
+
+    structure.push([(problem.getStartState(), "Stop", 0)])
+
+    closed = []
+
+    while not structure.isEmpty():
+
+
+        path = structure.pop()
+
+        curr_state = path[-1][0]
+        if problem.isGoalState(curr_state):
+
+            return [x[1] for x in path][1:]
+
+            #agar hanooz visited nashode bashad
+
+        if curr_state not in closed:
+            closed.append(curr_state)
+
+            for childs in problem.getSuccessors(curr_state):
+
+                print(childs)
+                if childs[0] not in closed:
+                    successorPath = path[:]
+                    successorPath.append(childs)
+                    structure.push(successorPath)
+
+    return False
+
+
+
 def depthFirstSearch(problem):
     """
     Search the deepest nodes in the search tree first.
