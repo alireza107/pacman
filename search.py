@@ -122,30 +122,25 @@ def generalGraphSearch(problem, structure):
 
 
 def depthFirstSearch(problem):
-    # Initialize an empty Stack
+#hal ba estefade az stack
     stack = util.Stack()
 
-    # DFS is general graph search with a Stack as the data structure
     return generalGraphSearch(problem, stack)
 
 def breadthFirstSearch(problem):
-    # Initialize an empty Queue
+    # hal ba estefasde az queue
     queue = util.Queue()
 
-    # BFS is general graph search with a Queue as the data structure
     return generalGraphSearch(problem, queue)
 
 def uniformCostSearch(problem):
-        # The cost for UCS only the backward cost
-    # get the actions in the path which are the second element for each tuple in the path, ignoring the first "Stop"
-    # calculate the cost of the actions specific to the Problem using problem.getCostOfActions
+        #hal ba liste olaviat dar
     cost = lambda path: problem.getCostOfActions([x[1] for x in path][1:])
 
-    # Construct an empty priority queue that sorts using this backwards cost
-    pq = util.PriorityQueueWithFunction(cost)
+    # liste olaviat dar
+    priorityQueue = util.PriorityQueueWithFunction(cost)
 
-    # UCS is general graph search with the PriorityQueue sorting by the cost as the data structure
-    return generalGraphSearch(problem, pq)
+    return generalGraphSearch(problem, priorityQueue)
 
 def nullHeuristic(state, problem=None):
     """
@@ -155,19 +150,15 @@ def nullHeuristic(state, problem=None):
     return 0
 
 def aStarSearch(problem, heuristic=nullHeuristic):
-    # The cost for a* seach is f(x) = g(x) + h(x)
-    # The backward cost defined in UCS (problem.getCostOfActions([x[1] for x in path][1:])) is g(x)
-    # The heuristic is h(x), heuristic(state, problem),
-    # where state = path[-1][0], which is the first element in the last tuple of the path
+
     cost = lambda path: problem.getCostOfActions([x[1] for x in path][1:]) + heuristic(path[-1][0], problem)
 
-    # Construct an empty priority queue that sorts using f(x)
-    pq = util.PriorityQueueWithFunction(cost)
+    # liste olaviat dar
+    #olaviate ha bar asase cost ha
+    priorityQueue = util.PriorityQueueWithFunction(cost)
 
-    # A* is general graph search with the PriorityQueue sorting by the f(x) as the data structure
-    return generalGraphSearch(problem, pq)
+    return generalGraphSearch(problem, priorityQueue)
 
-    # Abbreviations
 
 
 bfs = breadthFirstSearch
